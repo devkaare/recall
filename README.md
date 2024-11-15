@@ -1,3 +1,3 @@
-# Active recall tool
+# Active Recall CLI Tool
 
 > In progress

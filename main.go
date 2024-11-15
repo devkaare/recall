@@ -35,27 +35,30 @@ var questions = map[int]QA{
 var solved map[int]QA
 
 func main() {
-	var q QA
+	// TODO: Option mode instead?
+	for {
+		var q QA
 
-	// Check if question has been solved
-	randNum := rand.Intn(3)
+		// Check if question has been solved
+		randNum := rand.Intn(3)
 
-	if _, ok := solved[randNum]; !ok {
-		q = questions[randNum]
+		if _, ok := solved[randNum]; !ok {
+			q = questions[randNum]
+		}
+
+		r := bufio.NewReader(os.Stdin)
+		fmt.Println(q.Question)
+		awnser, err := r.ReadString('\n')
+		if err != nil {
+			panic(err)
+		}
+
+		// Check awnser
+		if awnser != q.Awnser {
+			fmt.Printf("Wrong:\nExpected: %sAwnser: %s\n", q.Awnser, awnser)
+			return
+		}
+
+		fmt.Println("Correct!")
 	}
-
-	r := bufio.NewReader(os.Stdin)
-	fmt.Println(q.Question)
-	awnser, err := r.ReadString('\n')
-	if err != nil {
-		panic(err)
-	}
-
-	// Check awnser
-	if awnser != q.Awnser {
-		fmt.Printf("Wrong:\nExpected: %sAwnser: %s", q.Awnser, awnser)
-		return
-	}
-
-	fmt.Println("Correct!")
 }
